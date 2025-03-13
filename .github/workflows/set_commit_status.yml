@@ -20,6 +20,5 @@ jobs:
       - run: echo "toJSON(github.event) > ${{ toJSON(github.event) }}"
       - run: echo "github.ref_name > ${{ github.ref_name }}"
       - run: echo "github.ref > ${{ github.ref }}"
-      - run: echo "GITHUB_REF > ${{ GITHUB_REF }}"
-      - run: echo "GITHUB_HEAD_REF > ${{ GITHUB_HEAD_REF }}"
+      - run: echo "GITHUB_REF > $GITHUB_REF"
       - run: echo "GITHUB_HEAD_REF > $GITHUB_HEAD_REF"
