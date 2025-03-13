@@ -28,12 +28,17 @@ jobs:
 
       - name: Create statuses
         run: |
+          # get commits' data
           response=$(curl --request GET \
           --url ${{ github.event.pull_request.commits_url }} \
           --header 'authorization: Bearer ${{ secrets.THE_GITHUB_TOKEN }}' \
           --header 'content-type: application/json' \
           --fail-with-body)
+
+          # iter for commits' sha numbers in pull request data
           for sha in $(echo "$response" | jq -r '.[].sha'); do
+          
+          # send status to each commit
             curl --request POST \
             --url https://api.github.com/repos/${{ github.repository }}/statuses/$sha \
             --header 'authorization: Bearer ${{ secrets.THE_GITHUB_TOKEN }}' \
