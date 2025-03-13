@@ -33,4 +33,4 @@ jobs:
           --header 'authorization: Bearer ${{ secrets.THE_GITHUB_TOKEN }}' \
           --header 'content-type: application/json' \
           --fail-with-body)
-      - run: echo "$RESPONSE"
+          echo "$RESPONSE"
