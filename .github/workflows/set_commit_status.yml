@@ -1,5 +1,5 @@
 name: Set Commit Status on PR Merge
-run-name: Set ${{ github.ref_name }} Commit Status for ${{ github.event.pull_request.title }}
+run-name: Set ${{ github.ref_name }} commit status for ${{ github.event.pull_request.title }}
 
 on:
   pull_request:
@@ -25,3 +25,12 @@ jobs:
       - run: echo "GITHUB_REF > $GITHUB_REF"
       - run: echo "GITHUB_HEAD_REF > $GITHUB_HEAD_REF"
       - run: echo "toJSON(github) > ${{ toJSON(github) }}"
+
+      - name: Get commits list
+        run: |
+          RESPONSE=$(curl --request POST \
+          --url ${{ github.event.pull_request.commits_url }} \
+          --header 'authorization: Bearer ${{ secrets.THE_GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --fail-with-body)
+      - run: echo "$RESPONSE"
