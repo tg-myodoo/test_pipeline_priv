@@ -28,7 +28,7 @@ jobs:
 
       - name: Get commits list
         run: |
-          RESPONSE=$(curl --request POST \
+          RESPONSE=$(curl --request GET \
           --url ${{ github.event.pull_request.commits_url }} \
           --header 'authorization: Bearer ${{ secrets.THE_GITHUB_TOKEN }}' \
           --header 'content-type: application/json' \
