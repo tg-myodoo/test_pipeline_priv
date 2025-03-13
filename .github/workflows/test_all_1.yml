@@ -1,6 +1,17 @@
 name: Test All Branches 1
 run-name: Run on branch ${{ github.ref }}
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - client_stage
+      - dev_stage
+      - mod1
+  pull_request:
+    branches:
+      - main
+      - client_stage
+      - dev_stage
 jobs:
   Test-All-Branches-Action-1:
     runs-on: ubuntu-latest
