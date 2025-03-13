@@ -2,8 +2,8 @@ name: Test All Branches 1
 run-name: Run on branch ${{ github.ref }}
 on:
   push:
-    branches:
-      - '**'
+    branches-ignore:
+      - main
   pull_request:
     branches:
       - main
