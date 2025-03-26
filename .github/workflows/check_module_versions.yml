@@ -1,0 +1,32 @@
+name: Check Module Versions
+run-name: Run ${{ github.base_ref }} check versions for ${{ github.event.pull_request.title }}
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - dev_stage
+      - client_stage 
+      
+jobs:
+  check-pr-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "toJSON(github) > ${{ toJSON(github) }}"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      - name: Execute script
+        env:
+          THE_GITHUB_TOKEN: ${{ secrets.THE_GITHUB_TOKEN }}
+          URL_PULL: ${{ github.event.pull_request.commits_url }}
+          REPOSITORY: ${{ github.repository }}
+          PULL_REQUEST_TARGET: ${{ github.base_ref }}
+        run: python ./.github/workflows/check_module_versions.py
